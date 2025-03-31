@@ -1,0 +1,77 @@
+# Compararea Performanțelor Algoritmilor de Optimizare pentru Braț Robotic
+
+Acest proiect MATLAB urmărește animarea și compararea a trei traiectorii pentru un braț robotic cu două segmente, folosind:
+
+- Cinematica inversă directă (traiectorie normală)
+- Optimizare Least Squares (minimizarea erorii între puncte)
+- Optimizare DFP (Davidon–Fletcher–Powell, metodă Quasi-Newton)
+
+## 🔧 Structură generală
+
+- **Brațul robotic** are două segmente de lungimi `L1 = 5`, `L2 = 3`.
+- Scopul este deplasarea vârfului brațului (end-effector) pe o traiectorie definită între două puncte.
+- Se compară metodele în funcție de acuratețea traiectoriei și "finețea" mișcării (variația unghiurilor).
+
+---
+
+## 📈 Algoritmi analizați
+
+### 1. Traiectorie Cinematică Inversă (Normală)
+
+- Traiectorie definită prin interpolare liniară a punctelor `(x, y)`.
+- Nu ține cont de variația unghiurilor între poziții succesive.
+- **Avantaj**: Simplitate și execuție rapidă.
+- **Dezavantaj**: Mișcare bruscă, posibilă discontinuitate în unghiuri.
+
+---
+
+### 2. Least Squares (Cele mai mici pătrate)
+
+- Se obține o traiectorie lină prin ajustarea unei drepte de forma `y = ax + b` pe un set de puncte.
+- Implementată prin rezolvarea ecuației:  
+  \[
+  x^* = (A^TA)^{-1}A^Tb
+  \]
+- **Avantaj**: Mișcare mai lină față de interpolarea brută, ideală pentru date experimentale zgomotoase.
+- **Dezavantaj**: Nu minimizează direct variația unghiurilor brațului.
+
+---
+
+### 3. DFP (Davidon-Fletcher-Powell)
+
+- Optimizare neliniară care **minimizează variația unghiurilor** între punctele succesive.
+- Funcția cost:  
+  \[
+  J = \sum_{i=1}^{n-1} (\theta_{i+1} - \theta_i)^2
+  \]
+- Implementare cu `fminunc` folosind algoritm quasi-newtonian.
+- **Avantaj**: Mișcare fluidă și optimizată pentru brațul robotic.
+- **Dezavantaj**: Cost de calcul mai mare, implementare mai complexă.
+
+---
+
+## 🧪 Rezultate și Concluzii
+
+| Metodă                 | Complexitate | Mișcare Lină | Mișcare realistă robotică | Cost computațional |
+|------------------------|--------------|--------------|----------------------------|---------------------|
+| Cinematică Inversă     | ⭐            | ⛔            | ⛔                          | ⭐⭐⭐⭐⭐              |
+| Least Squares          | ⭐⭐           | ⭐⭐           | ⭐                          | ⭐⭐⭐⭐               |
+| DFP (Quasi-Newton)     | ⭐⭐⭐⭐         | ⭐⭐⭐⭐         | ⭐⭐⭐⭐                       | ⭐⭐                 |
+
+- **Pentru control simplu și rapid**, metoda cinematicii inverse este suficientă.
+- **Pentru traiectorii realiste și fluente**, DFP este preferabilă, deși mai costisitoare computațional.
+- **Least Squares** este un compromis între precizie și performanță, potrivit pentru traiectorii aproximative.
+
+---
+
+## 📂 Fișiere Relevante
+
+- `Test2.m` — Script complet cu animație și implementarea celor 3 metode.
+- `Laborator 6+7.pdf` — Teorie detaliată despre metodele Least Squares, DFP și altele.
+
+---
+
+## 👨‍💻 Autor
+
+Acest proiect a fost realizat în cadrul laboratorului de **Tehnici de Optimizare**, utilizând MATLAB pentru vizualizare și analiză.
+
