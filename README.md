@@ -164,9 +164,10 @@ Aplicațiile reale includ:
 ---
 
 ## 👥 Membrii echipei
-- Gabriela Alexandra Florescu – dezvoltare metodă DFP, animații, documentație
-- [Nume coleg 1] – regresie Least Squares, partea teoretică
-- [Nume coleg 2] – cinematică inversă, grafică
+- Florescu Neagoe Gabriela Alexandra – dezvoltare metodă DFP, animații, documentație
+- Pogor Mihai – regresie Least Squares, partea teoretică
+- Vilceanu Lucia Alexandra – cinematică inversă, grafică
+- Braicu Raluca - testare și implementare
 
 ---
 
