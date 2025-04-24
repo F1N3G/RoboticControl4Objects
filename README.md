@@ -196,15 +196,15 @@ Proiectul arată cum se pot integra metode matematice și algoritmi de optimizar
 
 clc; clear; close all;
 
-% === Parametri braț robotic ===
+% Parametri braț robotic 
 L1 = 5;
 L2 = 3;
 
-% === Traiectorie normală ===
+% Traiectorie normală 
 x_norm = linspace(2, 6, 100);
 y_norm = linspace(3, 5, 100);
 
-% === Traiectorie optimizată prin Least Squares ===
+% Traiectorie optimizată prin Least Squares 
 x_data = [2, 3, 4, 5, 6]';
 y_data = [3, 3.5, 4.1, 4.6, 5]';
 A = [x_data, ones(size(x_data))];
@@ -213,7 +213,7 @@ a = coef(1); b = coef(2);
 x_opt1 = linspace(min(x_data), max(x_data), 100);
 y_opt1 = a * x_opt1 + b;
 
-% === Traiectorie optimizată prin DFP (minimizăm variația unghiurilor) ===
+% Traiectorie optimizată prin DFP (minimizăm variația unghiurilor) 
 x_init = linspace(2, 6, 20);
 y_init = linspace(3, 5, 20);
 x0 = [x_init; y_init];
@@ -227,7 +227,7 @@ sol = reshape(sol, 2, []);
 x_opt2 = sol(1, :);
 y_opt2 = sol(2, :);
 
-% === Funcție generală pentru animație ===
+% Funcție generală pentru animație 
 function animeaza_brat(x_traj, y_traj, L1, L2, titlu)
     figure; axis([-10 10 -10 10]);
     hold on; grid on;
@@ -265,7 +265,7 @@ function animeaza_brat(x_traj, y_traj, L1, L2, titlu)
     hold off;
 end
 
-% === Funcție cost pentru DFP ===
+% Funcție cost pentru DFP 
 function J = cost_variatie_unghiuri(v, L1, L2, x_ref, y_ref)
     p = reshape(v, 2, []);
     x = p(1, :);
@@ -290,7 +290,7 @@ function J = cost_variatie_unghiuri(v, L1, L2, x_ref, y_ref)
         (y - interp1(1:length(y_ref), y_ref, linspace(1, length(y_ref), length(y)))).^2);
 end
 
-% === Rularea animațiilor ===
+% Rularea animațiilor
 animeaza_brat(x_norm, y_norm, L1, L2, 'Traiectorie Cinematica Inversa (normală)');
 pause(2);
 animeaza_brat(x_opt1, y_opt1, L1, L2, 'Traiectorie Optimizată (Least Squares)');
